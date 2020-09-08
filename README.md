@@ -30,9 +30,28 @@
     eksctl create cluster -f cluster.yaml
     ```
 
-### Install MediaWiki with Helm3
+### Install MediaWiki with Helm2
 ```
+kubectl apply -f kubernetes/helm/tiller-rbac.yaml
+helm init --service-account tiller --history-max 200
+
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install mediawiki bitnami/mediawiki
 helm install --debug --atomic mediawiki2 --version 9.1.19 bitnami/mediawiki -f kubernetes/dev/mediawiki.yaml
 ```
+
+### Delete 
+* Delete helm release
+```
+helm delete mediawiki2 --purge
+```
+* delete PVC 
+```
+kubectl delete pvc data-mediawiki2-mariadb-0 mediawiki2-mediawiki
+```
+
+* delete k8s cluster
+```
+eksctl delete cluster kg-dev-2
+```
+
