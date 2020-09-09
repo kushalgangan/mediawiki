@@ -1,7 +1,7 @@
 FROM centos:7
 
 ## Install the prerequisite OS packages using yum command
-RUN yum install httpd php php-mysql php-gd php-xml mariadb-server mariadb php-mbstring -y
+RUN yum install wget httpd php php-mysql php-gd php-xml mariadb-server mariadb php-mbstring -y
 
 ## Start the Web Server and Database Service
 
@@ -13,9 +13,9 @@ RUN systemctl start mariadb; \
 ## Download MediaWiki 1.34.2 and Install
 ENV MEDIAWIKI_MAJOR_VERSION 1.34
 ENV MEDIAWIKI_VERSION 1.34.2
-RUN wget https://releases.wikimedia.org/mediawiki/${MEDIAWIKI_MAJOR_VERSION}/mediawiki-${MEDIAWIKI_VERSION}.tar.gz; \
-    tar -zxpvf mediawiki-${MEDIAWIKI_VERSION}.tar.gz; \
-    mv mediawiki-${MEDIAWIKI_VERSION} /var/www/html/mediawiki; \
+RUN wget "https://releases.wikimedia.org/mediawiki/${MEDIAWIKI_MAJOR_VERSION}/mediawiki-${MEDIAWIKI_VERSION}.tar.gz"; \
+    tar -zxpvf "mediawiki-${MEDIAWIKI_VERSION}.tar.gz"; \
+    mv "mediawiki-${MEDIAWIKI_VERSION}" /var/www/html/mediawiki; \
     chown -R apache:apache /var/www/html/mediawiki/; \
     chmod 755 /var/www/html/mediawiki/
 
