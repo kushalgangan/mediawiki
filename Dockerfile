@@ -12,9 +12,9 @@ RUN systemctl start mariadb; \
     systemctl enable mariadb
 
 ## Download MediaWiki 1.24.2 and Install
-RUN wget https://releases.wikimedia.org/mediawiki/1.24/mediawiki-1.24.2.tar.gz; \
-    tar -zxpvf mediawiki-1.24.2.tar.gz; \
-    mv mediawiki-1.24.2 /var/www/html/mediawiki; \
+RUN wget https://releases.wikimedia.org/mediawiki/1.34/mediawiki-1.34.2.tar.gz; \
+    tar -zxpvf mediawiki-1.34.2.tar.gz; \
+    mv mediawiki-1.34.2 /var/www/html/mediawiki; \
     chown -R apache:apache /var/www/html/mediawiki/; \
     chmod 755 /var/www/html/mediawiki/
 

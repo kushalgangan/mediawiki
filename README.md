@@ -6,8 +6,8 @@ This repository helps you to set up MediaWiki and its underlying infrastructure.
 ### MediaWiki Docker Image
 * Build docker image
   ```
-  docker build -t kusgalgangan/mediawiki:1.24.2 .
-  docker push kusgalgangan/mediawiki:1.24.2
+  docker build -t kusgalgangan/mediawiki:1.34.2 .
+  docker push kusgalgangan/mediawiki:1.34.2
   ```
 * Run docker locally
   ```
