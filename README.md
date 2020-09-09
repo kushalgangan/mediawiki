@@ -8,8 +8,6 @@
     asdf plugin-add terraform
     asdf plugin-add terragrunt
     asdf plugin-add kubectl
-    asdf plugin-add helm
-    asdf plugin-add eksctl
     ```
 
 * run `asdf install` from root of the repository
@@ -20,10 +18,20 @@
 * Update config for `bucket` and `dynamodb_table` in `terraform/live/dev/terragrunt.hcl` file
 
 
+### Setup VPC and EKS cluster together
+
+  * set AWS_PROFILE environment variable
+      ```
+      pushd terraform/live/dev
+      terragrunt plan-all
+      terragrunt apply-all
+      popd
+      ```
+
 ### Setup VPC
 * set AWS_PROFILE environment variable
     ```
-    pushd terraform/live/dev/vpc
+    pushd terraform/live/dev
     terragrunt init
     terragrunt plan
     terragrunt apply
@@ -53,10 +61,12 @@
     ```
       kubectl apply -f mediawiki-k8s/.
     ```
+  * Check if all the pods started successfully
   * Get ELB loadbalancer endpoint
     ```
     kubectl get svc mediawiki-app
     ```
+  * Open the RLB URL in browser
   * Database Details:
     - database host: mediawiki-db.default.svc.cluster.local
     - database name: bitnami_mediawiki
@@ -77,7 +87,14 @@
     kubectl delete pvc appvol-mediawiki-app-0 dbvol-mediawiki-db-0
     ```
     
-  * Delete EKS Cluster 
+  * Delete EKS Cluster and VPC in one command
+    ```
+    pushd terraform/live/dev
+    terragrunt destroy-all
+    popd
+    ```
+    
+  * Delete EKS Cluster
     ```
     pushd terraform/live/dev/eks-cluster
     terragrunt destroy
