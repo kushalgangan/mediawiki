@@ -20,7 +20,7 @@ spec:
           ports:
             - containerPort: 3306
           env:
-            - name: MYSQL_USER
+            - name: MYSQL_DATABASE
               value: my_wiki
             - name: MYSQL_USER
               value: wikiuser

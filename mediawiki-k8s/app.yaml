@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mediawiki-app
   namespace: mediawiki
@@ -8,6 +8,7 @@ spec:
   selector:
     matchLabels:
       app: mediawiki-app
+  serviceName: mediawiki-app
   replicas: 1
   template:
     metadata:
@@ -15,16 +16,16 @@ spec:
         app: mediawiki-app
     spec:
       containers:
-        - name: mediawiki-container
+        - name: mediawiki
           image: mediawiki
           volumeMounts:
             - mountPath: /var/www/html/images
-              name: mediawiki-volume
+              name: appvol
           ports:
             - containerPort: 80
   volumeClaimTemplates:
     - metadata:
-        name: mediawiki-volume
+        name: appvol
       spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
