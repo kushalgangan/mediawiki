@@ -3,7 +3,7 @@ MediaWiki is a free software open source wiki package written in PHP.
 
 This repository helps you to set up MediaWiki and its underlying infrastructure.
 
-### MediaWiki Image
+### MediaWiki Docker Image
 * Build docker image
   ```
   docker build -t kusgalgangan/mediawiki:1.24.2 .
