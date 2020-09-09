@@ -19,10 +19,10 @@ This repository helps you to set up MediaWiki and its underlying infrastructure.
 #### Setup terragrunt
 * Update config for `bucket` and `dynamodb_table` in `terraform/live/dev/terragrunt.hcl` file.
 * Assumption we are using "eu-west-1" region (in case you have to change find all occurrences of it and replace.
+* Set AWS Profile
+#### Setup VPC and EKS Cluster together
 
-#### Setup VPC and EKS cluster together
-
-  * Set AWS_PROFILE environment variable
+  * Run below commands
       ```
       pushd terraform/live/dev
       terragrunt plan-all
@@ -31,24 +31,24 @@ This repository helps you to set up MediaWiki and its underlying infrastructure.
       ```
     
 #### Setup VPC
-* set AWS_PROFILE environment variable
+   * Run below commands
+     ```
+     pushd terraform/live/dev
+     terragrunt init
+     terragrunt plan
+     terragrunt apply
+     popd
+     ```
+      
+#### Setup EKS Cluster
+  * Run below commands
     ```
-    pushd terraform/live/dev
+    pushd terraform/live/dev/eks-cluster
     terragrunt init
     terragrunt plan
     terragrunt apply
     popd
     ```
-  
-#### Setup EKS Cluster
-  * set AWS_PROFILE environment variable
-      ```
-      pushd terraform/live/dev/eks-cluster
-      terragrunt init
-      terragrunt plan
-      terragrunt apply
-      popd
-      ```
 
 #### Install mediawiki
   * set KUBECONFIG
