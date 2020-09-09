@@ -1,34 +1,34 @@
 ## Introduction
+MediaWiki is a free software open source wiki package written in PHP.
 
-
-### Setup all the required tools
-* install asdf https://asdf-vm.com/#/core-manage-asdf-vm
-* add asdf plugins https://asdf-vm.com/#/plugins-all
+### Setup Mediawiki Application and its Infrastructure
+#### Setup all the required tools
+* Install asdf, refer: https://asdf-vm.com/#/core-manage-asdf-vm
+* Add asdf plugins (https://asdf-vm.com/#/plugins-all)
     ```
     asdf plugin-add terraform
     asdf plugin-add terragrunt
     asdf plugin-add kubectl
     ```
 
-* run `asdf install` from root of the repository
-* install `aws-iam-authenticator` and `wget`
+* Run `asdf install` from root of the repository.
+* Install `aws-iam-authenticator` and `wget`
 
-### Setup terragrunt
-* assumption we are using "eu-west-1" region (in case you have to change find all occurrences of it and replace)
-* Update config for `bucket` and `dynamodb_table` in `terraform/live/dev/terragrunt.hcl` file
+#### Setup terragrunt
+* Update config for `bucket` and `dynamodb_table` in `terraform/live/dev/terragrunt.hcl` file.
+* Assumption we are using "eu-west-1" region (in case you have to change find all occurrences of it and replace.
 
+#### Setup VPC and EKS cluster together
 
-### Setup VPC and EKS cluster together
-
-  * set AWS_PROFILE environment variable
+  * Set AWS_PROFILE environment variable
       ```
       pushd terraform/live/dev
       terragrunt plan-all
       terragrunt apply-all
       popd
       ```
-
-### Setup VPC
+    
+#### Setup VPC
 * set AWS_PROFILE environment variable
     ```
     pushd terraform/live/dev
@@ -38,7 +38,7 @@
     popd
     ```
   
-### Setup EKS Cluster
+#### Setup EKS Cluster
   * set AWS_PROFILE environment variable
       ```
       pushd terraform/live/dev/eks-cluster
@@ -48,7 +48,7 @@
       popd
       ```
 
-### Install mediawiki
+#### Install mediawiki
   * set KUBECONFIG
     ```
     export KUBECONFIG=terraform/live/dev/eks-cluster/kubeconfig_blue-kg-dev-cluster:~/.kube/config
