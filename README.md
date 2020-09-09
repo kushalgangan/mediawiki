@@ -11,7 +11,7 @@ This repository helps you to set up MediaWiki and its underlying infrastructure.
   ```
 * Run docker locally
   ```
-  docker run -d -p 8080:80 kusgalgangan/mediawiki:1.24.2
+  docker run -d -p 8080:80 kusgalgangan/mediawiki:1.34
   ```
 
 ### Steps to Set Up Mediawiki Application
