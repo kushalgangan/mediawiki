@@ -1,3 +1,6 @@
+## Introduction
+
+
 ### Setup all the required tools
 * install asdf https://asdf-vm.com/#/core-manage-asdf-vm
 * add asdf plugins https://asdf-vm.com/#/plugins-all
@@ -10,59 +13,79 @@
     ```
 
 * run `asdf install` from root of the repository
+* install `aws-iam-authenticator` and `wget`
 
 ### Setup terragrunt
 * assumption we are using "eu-west-1" region (in case you have to change find all occurrences of it and replace)
 * Update config for `bucket` and `dynamodb_table` in `terraform/live/dev/terragrunt.hcl` file
 
+
 ### Setup VPC
 * set AWS_PROFILE environment variable
     ```
-    cd terraform/live/dev/vpc
+    pushd terraform/live/dev/vpc
     terragrunt init
     terragrunt plan
     terragrunt apply
+    popd
     ```
   
 ### Setup EKS Cluster
   * set AWS_PROFILE environment variable
       ```
-      cd terraform/live/dev/eks-cluster
+      pushd terraform/live/dev/eks-cluster
       terragrunt init
       terragrunt plan
       terragrunt apply
+      popd
       ```
-### Setup eks cluster with eksctl
 
-* go to kubernetes/dev directory from source root
-* update cluster.yaml with subnet ids collected from vpc
-* run create cluster command
+### Install mediawiki
+  * set KUBECONFIG
     ```
-    eksctl create cluster -f cluster.yaml
+    export KUBECONFIG=terraform/live/dev/eks-cluster/kubeconfig_blue-kg-dev-cluster:~/.kube/config
     ```
+  * Validate if all pod running
+    ```
+    kubectl get po -A
+    ```
+  * Apply MediaWiki K8s Template
+    ```
+      kubectl apply -f mediawiki-k8s/.
+    ```
+  * Get ELB loadbalancer endpoint
+    ```
+    kubectl get svc mediawiki-app
+    ```
+  * Database Details:
+    - database host: mediawiki-db.default.svc.cluster.local
+    - database name: bitnami_mediawiki
+    - database user: bn_mediawiki
+    - database password: bitnami
+    
+    ![Database Configuration](database-setup.png)
+    
+  * Mediawiki Setup completed
+  ![Setup Completed](mediawiki-setup.png)
+  
 
-### Install MediaWiki with Helm2
-```
-kubectl apply -f kubernetes/helm/tiller-rbac.yaml
-helm init --service-account tiller --history-max 200
 
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install mediawiki bitnami/mediawiki
-helm install --debug --atomic --name mediawiki2 --version 9.1.19 bitnami/mediawiki -f kubernetes/dev/mediawiki.yaml
-```
-
-### Delete 
-* Delete helm release
-```
-helm delete mediawiki2 --purge
-```
-* delete PVC 
-```
-kubectl delete pvc data-mediawiki2-mariadb-0 mediawiki2-mediawiki
-```
-
-* delete k8s cluster
-```
-eksctl delete cluster kg-dev-2
-```
-
+### How to Delete Resources
+  * Delete app
+    ```
+    kubectl delete -f mediawiki-k8s/.
+    kubectl delete pvc appvol-mediawiki-app-0 dbvol-mediawiki-db-0
+    ```
+    
+  * Delete EKS Cluster 
+    ```
+    pushd terraform/live/dev/eks-cluster
+    terragrunt destroy
+    popd
+    ```
+  * Delete VPC 
+    ```
+    pushd terraform/live/dev/vpc
+    terragrunt destroy
+    popd
+    ```

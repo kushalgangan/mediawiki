@@ -49,8 +49,6 @@ locals {
 
   kubeconfig_name = "kg-dev-${local.colour}"
 
-  //  NAT_CIDR = list(join("/", ["${data.aws_nat_gateway.nat_ip.public_ip}", "32"]))
-  //  Allowed_IP_Range = concat(var.k8s_cluster_whitelist_ips, local.NAT_CIDR)
 }
 
 data "aws_eks_cluster" "cluster" {
@@ -73,7 +71,6 @@ module "eks" {
   worker_groups_launch_template        = local.worker_groups_launch_template
   cluster_endpoint_public_access_cidrs = var.k8s_cluster_whitelist_ips
   write_kubeconfig                     = true
-  //  manage_aws_auth  = false
 
   tags = {
     Environment = local.environment
@@ -123,9 +120,3 @@ data "aws_subnet_ids" "private" {
     Tier = "private"
   }
 }
-
-//data "aws_nat_gateway" "nat_ip" {
-//  tags = {
-//    Environment = "kg-dev-cluster"
-//  }
-//}

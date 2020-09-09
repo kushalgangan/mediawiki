@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mediawiki-app
-  namespace: mediawiki
+  namespace: default
 spec:
   selector:
     matchLabels:
@@ -36,7 +36,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mediawiki-srv
+  name: mediawiki-app
+  namespace: default
   labels:
     app: mediawiki-app
 spec:
