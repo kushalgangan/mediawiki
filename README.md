@@ -53,7 +53,7 @@ This repository helps you to set up MediaWiki and its underlying infrastructure.
     ```
     export KUBECONFIG=terraform/live/dev/eks-cluster/kubeconfig_blue-kg-dev-cluster:~/.kube/config
     ```
-  * Validate if all pod running
+  * Validate if all kube-system pods running
     ```
     kubectl get po -A
     ```
