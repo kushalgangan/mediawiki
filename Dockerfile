@@ -1,7 +1,6 @@
 FROM centos:7
 
 ## Install the prerequisite OS packages using yum command
-#RUN yum update -y
 RUN yum install httpd php php-mysql php-gd php-xml mariadb-server mariadb php-mbstring -y
 
 ## Start the Web Server and Database Service

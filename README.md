@@ -3,17 +3,6 @@ MediaWiki is a free software open source wiki package written in PHP.
 
 This repository helps you to set up MediaWiki and its underlying infrastructure.
 
-### MediaWiki Docker Image
-* Build docker image
-  ```
-  docker build -t kusgalgangan/mediawiki:1.34 .
-  docker push kusgalgangan/mediawiki:1.34
-  ```
-* Run docker locally
-  ```
-  docker run -d -p 8080:80 kusgalgangan/mediawiki:1.34
-  ```
-
 ### Steps to Set Up Mediawiki Application
 #### 1. Setup all the required tools (Optional: If you have terraform 0.12+, terragrunt 0.23+ and kubectl 1.16+ already installed)
 * Install asdf, refer: https://asdf-vm.com/#/core-manage-asdf-vm
@@ -116,3 +105,14 @@ This repository helps you to set up MediaWiki and its underlying infrastructure.
         terragrunt destroy
         popd
         ```
+     
+### MediaWiki Docker Image
+* Build docker image
+  ```
+  docker build -t kusgalgangan/mediawiki:1.34 .
+  docker push kusgalgangan/mediawiki:1.34
+  ```
+* Run docker locally
+  ```
+  docker run -d -p 8080:80 kusgalgangan/mediawiki:1.34
+  ```
