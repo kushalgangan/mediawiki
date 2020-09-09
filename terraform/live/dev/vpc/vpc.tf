@@ -1,9 +1,9 @@
 locals {
   tags = {
-    Environment = "kg-dev-2"
+    Environment = "kg-dev"
   }
 
-  cluster_name = "kg-dev-2"
+  cluster_name = "kg-dev"
 }
 
 data "aws_availability_zones" "available" {

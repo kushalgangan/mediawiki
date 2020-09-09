@@ -11,6 +11,10 @@
 
 * run `asdf install` from root of the repository
 
+### Setup terragrunt
+* assumption we are using "eu-west-1" region (in case you have to change find all occurrences of it and replace)
+* Update config for `bucket` and `dynamodb_table` in `terraform/live/dev/terragrunt.hcl` file
+
 ### Setup VPC
 * set AWS_PROFILE environment variable
     ```
@@ -19,8 +23,15 @@
     terragrunt plan
     terragrunt apply
     ```
-  * capture the output in one file
   
+### Setup EKS Cluster
+  * set AWS_PROFILE environment variable
+      ```
+      cd terraform/live/dev/eks-cluster
+      terragrunt init
+      terragrunt plan
+      terragrunt apply
+      ```
 ### Setup eks cluster with eksctl
 
 * go to kubernetes/dev directory from source root
