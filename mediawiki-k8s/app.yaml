@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mediawiki-app
+  namespace: mediawiki
+spec:
+  selector:
+    matchLabels:
+      app: mediawiki-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mediawiki-app
+    spec:
+      containers:
+        - name: mediawiki-container
+          image: mediawiki
+          volumeMounts:
+            - mountPath: /var/www/html/images
+              name: mediawiki-volume
+          ports:
+            - containerPort: 80
+  volumeClaimTemplates:
+    - metadata:
+        name: mediawiki-volume
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mediawiki-srv
+  labels:
+    app: mediawiki-app
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      protocol: TCP
+  selector:
+    app: mediawiki-app

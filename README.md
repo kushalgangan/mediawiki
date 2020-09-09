@@ -37,7 +37,7 @@ helm init --service-account tiller --history-max 200
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install mediawiki bitnami/mediawiki
-helm install --debug --atomic mediawiki2 --version 9.1.19 bitnami/mediawiki -f kubernetes/dev/mediawiki.yaml
+helm install --debug --atomic --name mediawiki2 --version 9.1.19 bitnami/mediawiki -f kubernetes/dev/mediawiki.yaml
 ```
 
 ### Delete 

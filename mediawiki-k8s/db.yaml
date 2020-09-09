@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mediawiki-db
+  namespace: mediawiki
+spec:
+  selector:
+    matchLabels:
+      app: mediawiki-db
+  serviceName: mediawiki-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mediawiki-db
+    spec:
+      containers:
+        - name: mediawiki-db
+          image: mariadb:10.5.5
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_USER
+              value: my_wiki
+            - name: MYSQL_USER
+              value: wikiuser
+            - name: MYSQL_ROOT_PASSWORD
+              value: example
+            - name: MYSQL_RANDOM_ROOT_PASSWORD
+              value: 'yes'
+            - name: MYSQL_ALLOW_EMPTY_PASSWORD
+              value: 'yes'
+          volumeMounts:
+            - name: dbvol
+              mountPath: /var/lib/mysql
+              subPath: mysql
+  volumeClaimTemplates:
+    - metadata:
+        name: dbvol
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mediawiki-db
+  namespace: mediawiki
+  labels:
+    app: mediawiki-db
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3306
+      protocol: TCP
+  selector:
+    app: mediawiki-db
