@@ -4,7 +4,7 @@ MediaWiki is a free software open source wiki package written in PHP.
 This repository helps you to set up MediaWiki and its underlying infrastructure.
 
 ### Steps to Set Up Mediawiki Application
-#### Setup all the required tools (Optional: If you have terraform 0.12+, terragrunt 0.23+ and kubectl 1.16+ already installed)
+#### 1. Setup all the required tools (Optional: If you have terraform 0.12+, terragrunt 0.23+ and kubectl 1.16+ already installed)
 * Install asdf, refer: https://asdf-vm.com/#/core-manage-asdf-vm
 * Add asdf plugins (https://asdf-vm.com/#/plugins-all)
     ```
@@ -16,11 +16,11 @@ This repository helps you to set up MediaWiki and its underlying infrastructure.
 * Run `asdf install` from root of the repository.
 * Install `aws-iam-authenticator` and `wget`
 
-#### Setup terragrunt
+#### 2. Setup terragrunt
 * Update config for `bucket` and `dynamodb_table` in `terraform/live/dev/terragrunt.hcl` file.
 * Assumption we are using "eu-west-1" region (in case you have to change find all occurrences of it and replace.
 * Set AWS Profile
-#### Setup VPC and EKS Cluster
+#### 3. Setup VPC and EKS Cluster
 
   1. Run below commands to create VPC and Cluster together
       ```
@@ -48,7 +48,7 @@ This repository helps you to set up MediaWiki and its underlying infrastructure.
         popd
         ```
 
-#### Install mediawiki
+#### 4. Install mediawiki
   * set KUBECONFIG
     ```
     export KUBECONFIG=terraform/live/dev/eks-cluster/kubeconfig_blue-kg-dev-cluster:~/.kube/config
