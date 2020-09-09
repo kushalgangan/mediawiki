@@ -12,14 +12,13 @@ This repository helps you to set up MediaWiki and its underlying infrastructure.
     asdf plugin-add terragrunt
     asdf plugin-add kubectl
     ```
-
 * Run `asdf install` from root of the repository.
 * Install `aws-iam-authenticator` and `wget`
 
 #### 2. Setup terragrunt
 * Update config for `bucket` and `dynamodb_table` in `terraform/live/dev/terragrunt.hcl` file.
-* Assumption we are using "eu-west-1" region (in case you have to change find all occurrences of it and replace.
-* Set AWS Profile
+* Assumption we are using `eu-west-1` region, in case you have to change find all occurrences of it and replace.
+
 #### 3. Setup VPC and EKS Cluster
 
   1. Run below commands to create VPC and Cluster together
@@ -81,28 +80,28 @@ This repository helps you to set up MediaWiki and its underlying infrastructure.
 
 
 ### How to Delete Resources
-  * Delete app
+  1. Delete app
     ```
     kubectl delete -f mediawiki-k8s/.
     kubectl delete pvc appvol-mediawiki-app-0 dbvol-mediawiki-db-0
     ```
     
-  * Delete EKS Cluster and VPC in one command
-    ```
-    pushd terraform/live/dev
-    terragrunt destroy-all
-    popd
-    ```
+  2. Delete EKS Cluster and VPC in one command
+        ```
+        pushd terraform/live/dev
+        terragrunt destroy-all
+        popd
+        ```
     
-  * Delete EKS Cluster
-    ```
-    pushd terraform/live/dev/eks-cluster
-    terragrunt destroy
-    popd
-    ```
-  * Delete VPC 
-    ```
-    pushd terraform/live/dev/vpc
-    terragrunt destroy
-    popd
-    ```
+  3. Delete EKS Cluster (Optional: if step 2 already performed)
+        ```
+        pushd terraform/live/dev/eks-cluster
+        terragrunt destroy
+        popd
+        ```
+  4. Delete VPC (Optional: if step 2 already performed)
+        ```
+        pushd terraform/live/dev/vpc
+        terragrunt destroy
+        popd
+        ```
