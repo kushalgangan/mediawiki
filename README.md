@@ -1,8 +1,10 @@
 ## Introduction
 MediaWiki is a free software open source wiki package written in PHP.
 
-### Setup Mediawiki Application and its Infrastructure
-#### Setup all the required tools
+This repository helps you to set up MediaWiki and its underlying infrastructure.
+
+### Steps to Mediawiki Application
+#### Setup all the required tools (Optional: If you have terraform 0.12+, terragrunt 0.23+ and kubectl 1.16+ already installed)
 * Install asdf, refer: https://asdf-vm.com/#/core-manage-asdf-vm
 * Add asdf plugins (https://asdf-vm.com/#/plugins-all)
     ```
