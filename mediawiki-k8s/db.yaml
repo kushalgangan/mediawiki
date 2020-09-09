@@ -16,20 +16,18 @@ spec:
     spec:
       containers:
         - name: mediawiki-db
-          image: mariadb:10.5.5
+          image: bitnami/mariadb:latest
           ports:
             - containerPort: 3306
           env:
-            - name: MYSQL_DATABASE
-              value: my_wiki
-            - name: MYSQL_USER
-              value: wikiuser
-            - name: MYSQL_ROOT_PASSWORD
-              value: example
-            - name: MYSQL_RANDOM_ROOT_PASSWORD
+            - name: ALLOW_EMPTY_PASSWORD
               value: 'yes'
-            - name: MYSQL_ALLOW_EMPTY_PASSWORD
-              value: 'yes'
+            - name: MARIADB_USER
+              value: bn_mediawiki
+            - name: MARIADB_PASSWORD
+              value: bitnami
+            - name: MARIADB_DATABASE
+              value: bitnami_mediawiki
           volumeMounts:
             - name: dbvol
               mountPath: /var/lib/mysql
