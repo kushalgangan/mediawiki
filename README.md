@@ -106,13 +106,8 @@ This repository helps you to set up MediaWiki and its underlying infrastructure.
         popd
         ```
      
-### MediaWiki Docker Image
-* Build docker image
-  ```
-  docker build -t kusgalgangan/mediawiki:1.34 .
-  docker push kusgalgangan/mediawiki:1.34
-  ```
-* Run docker locally
+### Run MediaWiki On Local
+* Run docker locally with below command
   ```
   docker run -d -p 8080:80 kusgalgangan/mediawiki:1.34
   ```
